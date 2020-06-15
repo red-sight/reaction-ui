@@ -1,6 +1,9 @@
 <template>
   <div class="fullscreen-container">
-    <div class="game-container">
+    <div
+      class="game-container"
+      :class="{ 'game-container_blurred': showModal }"
+    >
       <batak
         :activeSensor="activeSensor"
         :status="status"
@@ -10,6 +13,7 @@
         @success="increaseScore"
       />
     </div>
+    <modal :show="showModal" />
   </div>
 </template>
 
@@ -22,12 +26,14 @@ export default {
       score: 0,
       status: false,
       time: 21,
-      timeCounter: null
+      timeCounter: null,
+      showModal: true
     }
   },
 
   components: {
-    batak: () => import('./Batak.vue')
+    batak: () => import('./Batak.vue'),
+    modal: () => import('./Modal.vue')
   },
 
   methods: {
@@ -81,8 +87,12 @@ export default {
     display: flex
     align-items: center
 
+
 .game-container
     width: 100vw
     background-image: url('../assets/img/bg-1.png')
     background-size: cover
+
+.game-container_blurred
+  filter: blur(2px) brightness(0.5)
 </style>
