@@ -13,7 +13,22 @@
         @success="increaseScore"
       />
     </div>
-    <modal :show="showModal" />
+
+    <modal :show.sync="showModal">
+      <template v-slot:title>Супер! Ваш результат:</template>
+      <template v-slot:content>
+        <div>
+          <img :src="scoreImg" alt="" class="score-image" />
+        </div>
+        <div>
+          Вы набрали {{ score }} баллов! Поделитесь вашим результатом с
+          друзьями:
+        </div>
+      </template>
+      <template v-slot:actions>
+        <a :href="shareURL.VK" target="_blank">Поделиться ВКонтакте</a>
+      </template>
+    </modal>
   </div>
 </template>
 
@@ -34,6 +49,19 @@ export default {
   components: {
     batak: () => import('./Batak.vue'),
     modal: () => import('./Modal.vue')
+  },
+
+  computed: {
+    scoreImg() {
+      return `img/scores/${this.score}.png`
+    },
+    shareURL() {
+      return {
+        VK: `https://vk.com/share.php?url="https://vk.com/share.php?url=http://localhost:8080
+        &desc=Я набрал ${this.score} баллов в игре Академия Безопасной Реакции! Проверь и ты себя!
+        &image=${this.scoreImg}`
+      }
+    }
   },
 
   methods: {
@@ -95,4 +123,7 @@ export default {
 
 .game-container_blurred
   filter: blur(2px) brightness(0.5)
+
+.score-image
+  max-width: 100%
 </style>
