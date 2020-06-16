@@ -8,6 +8,11 @@ const routes = [
   {
     path: '/',
     name: 'Home',
+    component: () => import('../components/Main.vue')
+  },
+  {
+    path: '/game',
+    name: 'Game',
     component: () => import('../components/Game.vue')
   },
   {
@@ -27,7 +32,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   base: process.env.BASE_URL,
   routes
 })

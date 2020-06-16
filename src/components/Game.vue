@@ -42,7 +42,7 @@ export default {
       status: false,
       time: 21,
       timeCounter: null,
-      showModal: true
+      showModal: false
     }
   },
 
@@ -55,13 +55,16 @@ export default {
     scoreImg() {
       return `img/scores/${this.score}.png`
     },
+
     shareURL() {
       return {
-        VK: `https://vk.com/share.php?url="https://vk.com/share.php?url=http://localhost:8080
-        &desc=Я набрал ${this.score} баллов в игре Академия Безопасной Реакции! Проверь и ты себя!
-        &image=${this.scoreImg}`
+        VK: `https://vk.com/share.php?url=${window.location.origin}&title=Игра&image=${window.location.origin}/img/scores/0.png`
       }
     }
+  },
+
+  mounted() {
+    document.documentElement.requestFullscreen()
   },
 
   methods: {
@@ -94,6 +97,7 @@ export default {
       this.status = false
       this.time = 21
       this.demo = setInterval(this.setActiveSensor, 1000)
+      this.showModal = true
     },
 
     increaseScore() {
@@ -118,7 +122,7 @@ export default {
 
 .game-container
     width: 100vw
-    background-image: url('../assets/img/bg-1.png')
+    background-image: url('/img/bg-1.jpg')
     background-size: cover
 
 .game-container_blurred
