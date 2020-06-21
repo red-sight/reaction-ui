@@ -7,11 +7,10 @@
           <launch-icon />
           Играть
         </router-link> -->
+        <div class="app-header__page-name">{{ pageName }}</div>
+        <menu-icon class="app-header__menu-icon" @click="showDrawer" />
       </div>
-      <div class="app-header__links">
-        <router-link to="/">Главная</router-link>
-        <router-link to="about">Все новости</router-link>
-      </div>
+      <app-links class="app-header__links"></app-links>
     </div>
   </div>
 </template>
@@ -20,16 +19,35 @@
 export default {
   components: {
     // LaunchIcon: () => import('icons/Launch.vue')
+    MenuIcon: () => import('icons/Menu.vue'),
+    AppLinks: () => import('@/components/AppLinks.vue')
+  },
+
+  computed: {
+    pageName() {
+      return this.$route.name
+    }
+  },
+
+  methods: {
+    showDrawer() {
+      this.$emit('showDrawer')
+    }
   }
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .app-header
     background-color: $primary
     color: white
     *
         color: white
+
+.app-header__page-name
+  flex-grow: 2
+  display: none
+
 
 .app-header__top
     height: 60px
@@ -45,29 +63,53 @@ export default {
 .app-header-btn
     background-color: $success
 
-.app-header__links
-    a
-        text-decoration: none
-        padding: 4px 20px
-        border-top-left-radius: $border-radius
-        border-top-right-radius: $border-radius
-        &.router-link-active, &.router-link-active:hover
-            background-color: white
-            color: $primary
-        &:hover
-            background-color: $darker
 
-.app-header__top, .app-header__links
+
+.app-header__top
     display: flex
     align-items: center
 
+.app-header__menu-icon
+  display: none
+  cursor: pointer
+  font-size: 28px
+  padding: 2px
+  border-radius: 100%
+  &:hover
+    background-color: $darker
+  .material-design-icon__svg
+    bottom: auto
+
+.app-header__links.app-links
+  display: flex
+  a
+    color: white
+    text-decoration: none
+    padding: 4px 20px
+    border-top-left-radius: $border-radius
+    border-top-right-radius: $border-radius
+    &.router-link-active, &.router-link-active:hover
+        background-color: white
+        color: $primary
+    &:hover
+        background-color: $darker
 
 @media screen and (max-width: 480px)
-    .app-header__top
-        height: 50px
+  .app-header__top
+    height: 50px
 
-    .app-header__logo
-        background-image: url('/img/logo_white_mini.svg')
-        height: 20px
-        background-position: left
+  .app-header__links.app-links
+    display: none
+
+  .app-header__menu-icon
+    display: inline-flex
+
+  .app-header__logo
+    background-image: url('/img/logo_white_mini.svg')
+    height: 20px
+    background-position: left
+    flex-grow: 1
+
+  .app-header__page-name
+    display: block
 </style>
