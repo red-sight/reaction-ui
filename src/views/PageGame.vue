@@ -15,7 +15,7 @@
     </div>
 
     <modal :show.sync="showModal">
-      <template v-slot:title>Супер! Ваш результат:</template>
+      <template v-slot:title>Игра окончена!</template>
       <template v-slot:content>
         <div>
           <img :src="scoreImg" alt="" class="score-image" />
@@ -47,8 +47,8 @@ export default {
   },
 
   components: {
-    batak: () => import('./Batak.vue'),
-    modal: () => import('./Modal.vue')
+    batak: () => import('@/components/Batak.vue'),
+    modal: () => import('@/components/Modal.vue')
   },
 
   computed: {

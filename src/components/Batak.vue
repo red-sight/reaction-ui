@@ -587,12 +587,6 @@ export default {
         this.$emit('success')
       }
     }
-  },
-
-  watch: {
-    count() {
-      console.log(this.count)
-    }
   }
 }
 </script>
