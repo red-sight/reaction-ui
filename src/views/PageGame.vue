@@ -180,7 +180,7 @@ export default {
 
 .game-container
   width: 100vw
-  background-image: url('/img/bg-1.jpg')
+  background-image: url('../assets/img/bg-1.jpg')
   background-size: cover
 
 .game-container_blurred

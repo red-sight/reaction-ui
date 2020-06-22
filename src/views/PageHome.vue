@@ -49,7 +49,7 @@ h3
   margin: 10px 0
   &::before
     content: ''
-    background-image: url('/img/bg-1.jpg')
+    background-image: url('../assets/img/bg-1.jpg')
     background-size: cover
     border-radius: 5px
     width: 100%
