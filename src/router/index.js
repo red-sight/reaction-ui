@@ -6,13 +6,18 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '',
+    path: '/',
     component: () => import('@/layouts/LayoutDefault.vue'),
     children: [
       {
         path: '',
         name: 'Главная',
         component: () => import('@/views/PageHome.vue')
+      },
+      {
+        path: '/about',
+        name: 'О проекте',
+        component: () => import('@/views/PageAbout.vue')
       }
     ]
   },

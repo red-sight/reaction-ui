@@ -27,6 +27,8 @@ export default {
 // .app-container
 //   background-color: $page-color
 
-// .page
-//   background-color: white
+.page
+  padding: 20px 0
+  text-align: left
+  line-height: 1.5em
 </style>

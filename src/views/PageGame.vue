@@ -1,5 +1,22 @@
 <template>
-  <div class="fullscreen-container">
+  <div class="fullscreen-container" ref="fullscreenContainer">
+    <div class="actions">
+      <div
+        class="actions__action"
+        v-show="fullscreenEnabled"
+        @click="disableFullscreen"
+      >
+        <fullscreen-exit-icon />
+      </div>
+      <div
+        class="actions__action"
+        v-show="!fullscreenEnabled"
+        @click="enableFullscreen"
+      >
+        <fullscreen-icon />
+      </div>
+      <div class="actions__action"><close-icon @click="exitGame" /></div>
+    </div>
     <div
       class="game-container"
       :class="{ 'game-container_blurred': showModal }"
@@ -42,13 +59,17 @@ export default {
       status: false,
       time: 21,
       timeCounter: null,
-      showModal: false
+      showModal: false,
+      fullscreenEnabled: null
     }
   },
 
   components: {
     batak: () => import('@/components/Batak.vue'),
-    modal: () => import('@/components/Modal.vue')
+    modal: () => import('@/components/Modal.vue'),
+    FullscreenExitIcon: () => import('icons/FullscreenExit.vue'),
+    FullscreenIcon: () => import('icons/Fullscreen.vue'),
+    CloseIcon: () => import('icons/Close.vue')
   },
 
   computed: {
@@ -64,7 +85,11 @@ export default {
   },
 
   mounted() {
-    document.documentElement.requestFullscreen()
+    this.enableFullscreen()
+
+    this.$refs.fullscreenContainer.addEventListener('fullscreenchange', () => {
+      this.fullscreenEnabled = !!document.fullscreenElement
+    })
   },
 
   methods: {
@@ -105,6 +130,24 @@ export default {
         this.score++
         this.setActiveSensor()
       }
+    },
+
+    enableFullscreen() {
+      this.$refs.fullscreenContainer.requestFullscreen().catch(err => {
+        if (err) {
+          console.log(err)
+        }
+      })
+    },
+
+    disableFullscreen() {
+      if (document.exitFullscreen) {
+        document.exitFullscreen()
+      }
+    },
+
+    exitGame() {
+      this.$router.push('/')
     }
   }
 }
@@ -113,17 +156,32 @@ export default {
 <style lang="sass" scoped>
 
 .fullscreen-container
-    background-color: black
-    height: 100vh
-    width: 100vw
-    display: flex
-    align-items: center
+  background-color: black
+  height: 100vh
+  width: 100vw
+  display: flex
+  align-items: center
 
+.actions
+  background-color: rgba(0, 0, 0, 0.7)
+  position: absolute
+  top: 0
+  right: 0
+  display: flex
+  font-size: 28px
+  .actions__action
+    color: white
+    width: 30px
+    height: 30px
+    cursor: pointer
+    &:hover
+      color: $text-color
+      background-color: rgba(256, 256, 256, 0.8)
 
 .game-container
-    width: 100vw
-    background-image: url('/img/bg-1.jpg')
-    background-size: cover
+  width: 100vw
+  background-image: url('/img/bg-1.jpg')
+  background-size: cover
 
 .game-container_blurred
   filter: blur(2px) brightness(0.5)

@@ -77,8 +77,6 @@ export default {
   border-radius: 100%
   &:hover
     background-color: $darker
-  .material-design-icon__svg
-    bottom: auto
 
 .app-header__links.app-links
   display: flex
@@ -88,7 +86,7 @@ export default {
     padding: 4px 20px
     border-top-left-radius: $border-radius
     border-top-right-radius: $border-radius
-    &.router-link-active, &.router-link-active:hover
+    &.router-link-exact-active, &.router-link-exact-active:hover
         background-color: white
         color: $primary
     &:hover

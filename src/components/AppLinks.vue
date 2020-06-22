@@ -1,6 +1,6 @@
 <template>
   <div class="app-links">
-    <router-link to="/">Главная</router-link>
-    <router-link to="about">Все новости</router-link>
+    <router-link :to="{ name: 'Главная' }">Главная</router-link>
+    <router-link to="/about">О проекте</router-link>
   </div>
 </template>

@@ -25,6 +25,16 @@ export default {
     hideDrawer() {
       this.$emit('update:show', false)
     }
+  },
+
+  watch: {
+    $route() {
+      this.hideDrawer()
+    },
+    show(newValue) {
+      let overflow = newValue ? 'hidden' : 'auto'
+      document.body.style.overflowY = overflow
+    }
   }
 }
 </script>
@@ -32,7 +42,7 @@ export default {
 <style lang="sass">
 .app-drawer
   z-index: 100000
-  position: absolute
+  position: fixed
   width: 100vw
   height: 100vh
   background-color: white
@@ -63,7 +73,7 @@ export default {
       text-decoration: none
       &:hover
         background-color: $darker
-      &.router-link-active
+      &.router-link-exact-active
         background-color: $primary
         color: white
 </style>
