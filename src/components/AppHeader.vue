@@ -55,7 +55,7 @@ export default {
 
 .app-header__logo
     flex-grow: 2
-    background-image: url('/img/logo_white.svg')
+    background-image: url('../assets/img/logo_white.svg')
     height: 30px
     background-repeat: no-repeat
     background-position: center
@@ -103,7 +103,7 @@ export default {
     display: inline-flex
 
   .app-header__logo
-    background-image: url('/img/logo_white_mini.svg')
+    background-image: url('../assets/img/logo_white_mini.svg')
     height: 20px
     background-position: left
     flex-grow: 1
